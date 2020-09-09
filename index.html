@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>選択留年チェッカー</title>
+    <style>
+        body {
+            color: #030303;
+            font-family: Lato, HiraKakuProN-W3, "游ゴシック Medium", "Yu Gothic Medium", 游ゴシック体, YuGothic, メイリオ, sans-serif;
+        }
+        h1, p {
+            text-align: center;
+        }
+        .wrap {
+            text-align: center;
+        }
+        h1 {
+            display: inline-block;
+            font-size: 1.5rem;
+            border-bottom: #030303 2px dashed;
+        }
+        h2 {
+            margin: 0;
+        }
+        #main {
+            width: 800px;
+            max-width: 90vw;
+            margin: 0 auto 0;
+        }
+        .box {
+            margin: 1em 0;
+            background: #DCEFFF;
+        }
+        .box h2 {
+            font-size: 1.2em;
+            background: #00469C;
+            padding: 4px;
+            text-align: center;
+            color: #FAFAFA;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+        }
+        .box ul {
+            padding: 15px 20px;
+            margin: 0;
+        }
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        label {
+            width: 33%;
+            margin-bottom: 2%;
+        }
+        button {
+            display: block;
+            padding: 1em 3em;
+            margin: 0 auto 0;
+            text-decoration: none;
+            border: solid 2px #030303;
+            border-radius: 3px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.5;
+        }
+        #result {
+            color: red;
+        }
+        @media (max-width: 480px) {
+            label {
+                width: 100%;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    
+    <div id="main">
+        <div class="wrap">
+            <h1>選択留年チェッカー</h1>
+        </div>
+        <p>取得済・取得予定の科目を選択！</p>
+        <div class="box">
+            <h2>1年</h2>
+            <ul>
+                <label><input type="checkbox" name="subject1" value="2">哲学入門</label>
+                <label><input type="checkbox" name="subject1" value="2">歴史学</label>
+                <label><input type="checkbox" name="subject1" value="2">社会学入門</label>
+                <label><input type="checkbox" name="subject1" value="2">地域論</label>
+                <label><input type="checkbox" name="subject1" value="2">全人的医療体験学習Ⅰ</label>
+                <label><input type="checkbox" name="subject1" value="1">自然科学入門</label>
+                <label><input type="checkbox" name="subject1" value="2">現代社会と科学</label>
+                <label><input type="checkbox" name="subject1" value="2">基礎医学研究入門Ⅰ</label>
+                <label><input type="checkbox" name="subject1" value="2">医療イノベーションの基礎</label>
+            </ul>
+        </div>
+        <div class="box">
+            <h2>2年</h2>
+            <ul>
+                <label><input type="checkbox" name="subject2" value="2">文学</label>
+                <label><input type="checkbox" name="subject2" value="2">芸術学</label>
+                <label><input type="checkbox" name="subject2" value="2">法学</label>
+                <label><input type="checkbox" name="subject2" value="2">地域文化論</label>
+                <label><input type="checkbox" name="subject2" value="2">教育学</label>
+                <label><input type="checkbox" name="subject2" value="2">英語セミナー</label>
+                <label><input type="checkbox" name="subject2" value="2">ドイツ語ゼミナール</label>
+                <label><input type="checkbox" name="subject2" value="2">ドイツ語圏言語文化研究</label>
+                <label><input type="checkbox" name="subject2" value="2">フランス語圏言語文化研究</label>
+                <label><input type="checkbox" name="subject2" value="2">中国語圏言語文化研究</label>
+                <label><input type="checkbox" name="subject2" value="2">中欧言語文化研究</label>
+                <label><input type="checkbox" name="subject2" value="2">人間科学研究</label>
+                <label><input type="checkbox" name="subject2" value="2">全人的医療体験学習Ⅱ</label>
+                <label><input type="checkbox" name="subject2" value="2">医系物理学</label>
+                <label><input type="checkbox" name="subject2" value="2">基礎科学研究</label>
+                <label><input type="checkbox" name="subject2" value="2">基礎医学研究入門Ⅱ</label>
+            </ul>
+        </div>
+        <p id="result"></p>
+        <p id="cre1"></p>
+        <p id="cre2"></p>
+        <button onclick="check();">判定！</button>
+    </div>
+    <script>
+        let check = () => {
+            let cre1 = 0;
+            let cre2 = 0;
+            const subs1 = document.getElementsByName('subject1');
+            const subs2 = document.getElementsByName('subject2');
+            for(let i = 0; i < subs1.length; i++) {
+                if(subs1[i].checked) {
+                    cre1 += parseInt(subs1[i].value);
+                }
+            }
+            for(let i = 0; i < subs2.length; i++) {
+                if(subs2[i].checked) {
+                    cre2 += parseInt(subs2[i].value);
+                }
+            }
+            let total = cre1 + cre2;
+            let result = document.querySelector('#result');
+            let result2 = document.querySelector('#cre1');
+            let result3 = document.querySelector('#cre2');
+            result.textContent = '';
+            result2.textContent = '';
+            result3.textContent = '';
+            if(total >= 12 && cre2 >= 8) {
+                result.textContent = '進級できます！';
+            } else {
+                result.textContent = '進級できません！';
+                let difT = 12 - total;
+                let difC = 8 - cre2;
+                if(difC > 0) {
+                    result2.textContent = (`2年の単位が ${difC} 足りません！`);
+                }
+                if(difT > 0) {
+                    result3.textContent = (`総単位が ${difT} 足りません！`);
+                }
+            }
+        }
+    </script>
+  </body>
+</html>
